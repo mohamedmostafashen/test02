@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أفضل أنواع الذكاء الاصطناعي</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;700&family=Cairo:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Alexandria', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333;
+            overflow: hidden;
+        }
+
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .welcome-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .welcome-message {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .enter-button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            font-family: 'Cairo', sans-serif;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .enter-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .enter-button:active {
+            transform: scale(0.95);
+        }
+
+        .main-content {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .main-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .header {
+            background-color: #f8f9fa;
+            color: #333;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .header h1, .header h2 {
+            margin: 0;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+            width: calc(33.33% - 15px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .button:active {
+            background-color: #004080;
+            transform: scale(0.95);
+        }
+
+        .ai-models {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .model-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .model-list a {
+            width: calc(33.33% - 15px);
+        }
+
+        @media (max-width: 768px) {
+            .model-list a {
+                width: calc(50% - 15px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .model-list a {
+                width: 100%;
+            }
+        }
+
+        .separator {
+            width: 80%;
+            height: 2px;
+            background-color: #333;
+            margin: 20px auto;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            margin: 30px auto;
+            padding: 10px;
+            position: relative;
+        }
+
+        .status-bar .line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background-color: #333;
+            z-index: -1;
+        }
+
+        .status-bar .line-left {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 50%;
+            height: 2px;
+            background-color: #333;
+            z-index: -1;
+        }
+
+        .status-bar .line-right {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 50%;
+            height: 2px;
+            background-color: #333;
+            z-index: -1;
+        }
+
+        .status-bar .circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa;
+            border: 2px solid #333;
+        }
+
+        .status-bar .circle.correct {
+            background-color: rgb(255, 255, 255);
+            color: rgb(18, 101, 255);
+        }
+
+        .status-bar .circle.incorrect {
+            background-color: rgb(255, 255, 255);
+            color: rgb(255, 13, 13);
+        }
+
+        .important-models {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .important-models img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s forwards;
+            margin-top: 20px;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .footer {
+            background-color: #f8f9fa;
+            color: #333;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-message">مرحباً بك في موقع شركة .......</div>
+        <button class="enter-button" id="enterButton">دخول</button>
+    </div>
+
+    <div class="main-content" id="mainContent">
+        <header class="header">
+            <h1>بسم الله الرحمن الرحيم</h1>
+        </header>
+        <main class="content">
+            <section class="ai-models">
+                <h3>أفضل أنواع الذكاء الاصطناعي</h3>
+                <div class="model-list">
+                    <a href="https://example.com/gemini" class="button" target="_blank">Gemini<br>419M</a>
+                    <a href="https://example.com/chatgpt" class="button" target="_blank">ChatGPT<br>2.5B</a>
+                    <a href="https://example.com/copilot" class="button" target="_blank">Copilot<br>104.1M</a>
+                    <a href="https://example.com/claude" class="button" target="_blank">Claude<br>186.0M</a>
+                    <a href="https://example.com/google-ai-studio" class="button" target="_blank">Google AI Studio<br>22.13M</a>
+                    <a href="https://example.com/perplexity" class="button" target="_blank">Perplexity<br>90M</a>
+                </div>
+            </section>
+
+            <div class="separator"></div>
+
+            <section class="ai-models">
+                <div class="model-list">
+                    <a href="https://example.com/groq" class="button" target="_blank">Groq</a>
+                    <a href="https://example.com/hugging-chat" class="button" target="_blank">Hugging Chat</a>
+                    <a href="https://example.com/cohere" class="button" target="_blank">Cohere<br>440K</a>
+                    <a href="https://example.com/you" class="button" target="_blank">You<br>33.01M</a>
+                    <a href="https://example.com/reka" class="button" target="_blank">Reka<br>967,341</a>
+                    <a href="https://example.com/meta" class="button" target="_blank">Meta<br>Get instant access</a>
+                </div>
+            </section>
+
+            <div class="status-bar">
+                <div class="circle correct">✔️</div>
+                <div class="circle">✔️</div>
+                <div class="circle incorrect">❌</div>
+                <div class="line-left"></div>
+                <div class="line-right"></div>
+            </div>
+
+            <div class="important-models">
+                <h3>أهم نماذج الذكاء الاصطناعي</h3>
+            </div>
+
+            <!-- إضافة iframe لعرض الموقع مباشرة -->
+            <section class="iframe-section" style="text-align: center; margin-top: 30px;">
+                <iframe src="https://www.socialai.tech/graphs/llm.html?fbclid=IwAR3cYB8qRSGOK4YSWuXiMYpRxePZW_bXlP5HbzBTbXEuKtE_ijMddQkLFE0_aem_ATQE8VyThVXAwDTNkhKDyBQHrIEykfRHu0riOEa2HrFjbGwTShWEqRcPVUHDw5piH2up1YZYDLU6EIvdhI3SOrlB" width="100%" height="600px" style="border: none;"></iframe>
+            </section>
+        </main>
+        <footer class="footer">
+            <p>© 2024 جميع الحقوق محفوظة</p>
+        </footer>
+    </div>
+
+    <script>
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const enterButton = document.getElementById('enterButton');
+        const mainContent = document.getElementById('mainContent');
+
+        function enterSite() {
+            welcomeScreen.classList.add('hidden');
+            mainContent.classList.add('visible');
+            document.body.style.overflow = 'auto';
+        }
+
+        setTimeout(enterSite, 5000);
+
+        enterButton.addEventListener('click', enterSite);
+    </script>
+</body>
+</html>
